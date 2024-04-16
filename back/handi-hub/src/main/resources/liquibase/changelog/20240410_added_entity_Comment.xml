@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2024-04-10 17:08" author="${sardorbroo}">
+        <createTable tableName="comment">
+            
+            <column name="id" type="${uuidType}">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="message" type="varchar(1024)">
+                <constraints nullable="false" />
+            </column>
+            <column name="rating" type="bigint" defaultValue="0" />
+            <column name="created_at" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_by" type="${uuidType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="product_id" type="${uuidType}">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="comment"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk__comment_product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id" />
+    </changeSet>
+</databaseChangeLog>

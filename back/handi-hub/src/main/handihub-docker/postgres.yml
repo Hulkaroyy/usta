@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: postgres:14.10
+    container_name: handi-hub-postgresql
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    ports:
+      - 5432:5432

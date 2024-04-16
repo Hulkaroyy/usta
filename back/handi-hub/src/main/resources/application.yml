@@ -1,0 +1,51 @@
+
+logging:
+  level:
+    uz.handihub.productms: DEBUG
+
+server:
+  port: 8090
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
+  application:
+    name: handi-hub-productms
+
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9080/realms/dev
+        registration:
+          oidc:
+            client-id: microservice
+            client-secret: microservice
+            scope: openid
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/keycloak
+    username: keycloak
+    password: keycloak
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  banner:
+    location: static/banner.txt
+  liquibase:
+    change-log: liquibase/master.xml
+
+keycloak:
+  realm: dev
+  password: 1111
+  username: user-manager
+  scope: openid
+  clientId: microservice
+  serverUrl: http://localhost:9080
+  clientSecret: microservice
+
+storage:
+  # add it to .gitignore
+  location: content-of-products

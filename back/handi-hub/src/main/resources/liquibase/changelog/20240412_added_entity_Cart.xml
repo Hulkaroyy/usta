@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2024-04-12 18:46" author="${sardorbroo}">
+
+        <createTable tableName="cart">
+            <column name="id" type="${uuidType}">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="user_id" type="${uuidType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="count" type="bigint" defaultValue="0"/>
+            <column name="product_id" type="${uuidType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="order_id" type="${uuidType}" />
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="cart"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk__cart_product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableName="cart"
+                                 baseColumnNames="order_id"
+                                 constraintName="fk__cart_order_id"
+                                 referencedTableName="order"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+</databaseChangeLog>
